@@ -1,0 +1,36 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path.s3tc="res://.import/tec9_albedo.jpg-1ffc9b0ff2cb0f72337869635b125e00.s3tc.stex"
+path.etc2="res://.import/tec9_albedo.jpg-1ffc9b0ff2cb0f72337869635b125e00.etc2.stex"
+metadata={
+"imported_formats": [ "s3tc", "etc2" ],
+"vram_texture": true
+}
+
+[deps]
+
+source_file="res://Assets/Textures/tec9_albedo.jpg"
+dest_files=[ "res://.import/tec9_albedo.jpg-1ffc9b0ff2cb0f72337869635b125e00.s3tc.stex", "res://.import/tec9_albedo.jpg-1ffc9b0ff2cb0f72337869635b125e00.etc2.stex" ]
+
+[params]
+
+compress/mode=2
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=true
+flags/filter=true
+flags/mipmaps=true
+flags/anisotropic=false
+flags/srgb=1
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+stream=false
+size_limit=0
+detect_3d=false
+svg/scale=1.0

@@ -1,0 +1,26 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Assets/Models/tec9.glb" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Models/tec9_viewmodel.material" type="Material" id=2]
+[ext_resource path="res://Assets/Models/pilot_gauntlet_viewmodel.material" type="Material" id=3]
+[ext_resource path="res://Assets/Models/pilot_gear_viewmodel.material" type="Material" id=4]
+[ext_resource path="res://Assets/Models/pilot_body_viewmodel.material" type="Material" id=5]
+[ext_resource path="res://Assets/Models/tec9_viewmodel.gd" type="Script" id=6]
+
+[node name="tec9_viewmodel" instance=ExtResource( 1 )]
+script = ExtResource( 6 )
+viewmodelfov = 60.0
+
+[node name="pov_pilot_light_jester_f_skeleton" parent="." index="1"]
+transform = Transform( -0.027, 0, -2.36041e-09, 0, 0.027, 0, 2.36041e-09, 0, -0.027, 0, 0, 0 )
+
+[node name="pov_pilot_light_jester_f" parent="pov_pilot_light_jester_f_skeleton/Skeleton" index="0"]
+material/0 = ExtResource( 5 )
+material/1 = ExtResource( 4 )
+material/2 = ExtResource( 3 )
+
+[node name="tec9" parent="pov_pilot_light_jester_f_skeleton/Skeleton" index="1"]
+material/0 = ExtResource( 2 )
+
+[node name="AnimationPlayer" parent="." index="2"]
+autoplay = "breathing-loop"

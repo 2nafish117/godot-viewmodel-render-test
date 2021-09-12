@@ -1,0 +1,66 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://FpCamera.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/kloppenheim_06_4k.exr" type="Texture" id=2]
+[ext_resource path="res://Assets/Textures/texture_08.png" type="Texture" id=3]
+
+[sub_resource type="PanoramaSky" id=1]
+panorama = ExtResource( 2 )
+
+[sub_resource type="Environment" id=2]
+background_mode = 2
+background_sky = SubResource( 1 )
+ambient_light_color = Color( 0.176471, 0.176471, 0.176471, 1 )
+ambient_light_sky_contribution = 0.0
+tonemap_mode = 3
+ss_reflections_enabled = true
+dof_blur_near_enabled = true
+dof_blur_near_distance = 0.49
+dof_blur_near_transition = 0.2
+dof_blur_near_amount = 0.11
+
+[sub_resource type="PlaneMesh" id=3]
+size = Vector2( 50, 50 )
+
+[sub_resource type="SpatialMaterial" id=4]
+flags_world_triplanar = true
+albedo_color = Color( 0.329412, 0.329412, 0.329412, 1 )
+albedo_texture = ExtResource( 3 )
+uv1_triplanar = true
+
+[sub_resource type="SpatialMaterial" id=6]
+albedo_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="CubeMesh" id=5]
+material = SubResource( 6 )
+size = Vector3( 1, 1, 1 )
+
+[node name="Spatial" type="Spatial"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 2 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.941046, 0.0942121, -0.324894, 0, 0.960435, 0.278505, 0.338278, -0.262086, 0.903813, 0, 1.82786, 0 )
+light_energy = 6.0
+
+[node name="FpCamera" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0 )
+
+[node name="Camera" parent="FpCamera/H/V" index="0"]
+current = true
+fov = 86.6
+
+[node name="tec9_viewmodel" parent="FpCamera/H/V" index="2"]
+viewmodelfov = 70.0
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 3 )
+material/0 = SubResource( 4 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.661, 1.1817 )
+mesh = SubResource( 5 )
+material/0 = null
+
+[editable path="FpCamera"]
