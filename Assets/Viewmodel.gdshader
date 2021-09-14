@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode blend_mix,depth_draw_opaque,cull_disabled,diffuse_burley,specular_schlick_ggx;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
 
 const float PI = 3.1415926;
 
@@ -29,12 +29,17 @@ uniform vec3 uv2_offset = vec3(0.0f);
 
 void vertex() {
 	UV = UV * uv1_scale.xy + uv1_offset.xy;
-	if(viewmodel_fov != 0.0f) {
-		float onetanfov = 1.0f / tan(0.5f * (viewmodel_fov * PI / 180.0f));
-		float aspect = screen_width / screen_height;
-		PROJECTION_MATRIX[1][1] = onetanfov;
-		PROJECTION_MATRIX[0][0] = onetanfov / aspect;
-	}
+	
+	/* begin shader magic*/
+	float onetanfov = 1.0f / tan(0.5f * (viewmodel_fov * PI / 180.0f));
+	float aspect = screen_width / screen_height;
+	// modify projection matrix
+	PROJECTION_MATRIX[1][1] = onetanfov;
+	PROJECTION_MATRIX[0][0] = onetanfov / aspect;
+	// draws the viewmodel over everything (disable if you want dof near on viewmodel)
+	POSITION = PROJECTION_MATRIX * MODELVIEW_MATRIX * vec4(VERTEX.xyz, 1.0);
+	POSITION.z = mix(POSITION.z, 0, 0.99);
+	/* end shader magic */
 }
 
 void fragment() {

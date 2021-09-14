@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://FpCamera.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/kloppenheim_06_4k.exr" type="Texture" id=2]
@@ -14,7 +14,6 @@ ambient_light_color = Color( 0.176471, 0.176471, 0.176471, 1 )
 ambient_light_sky_contribution = 0.0
 tonemap_mode = 3
 ss_reflections_enabled = true
-dof_blur_near_enabled = true
 dof_blur_near_distance = 0.49
 dof_blur_near_transition = 0.2
 dof_blur_near_amount = 0.11
@@ -28,12 +27,58 @@ albedo_color = Color( 0.329412, 0.329412, 0.329412, 1 )
 albedo_texture = ExtResource( 3 )
 uv1_triplanar = true
 
-[sub_resource type="SpatialMaterial" id=6]
-albedo_color = Color( 0, 0, 0, 1 )
+[sub_resource type="SpatialMaterial" id=5]
+albedo_color = Color( 0.294118, 0.0313726, 0.0313726, 1 )
 
-[sub_resource type="CubeMesh" id=5]
-material = SubResource( 6 )
+[sub_resource type="CubeMesh" id=6]
+material = SubResource( 5 )
 size = Vector3( 1, 1, 1 )
+
+[sub_resource type="CapsuleMesh" id=7]
+
+[sub_resource type="Shader" id=8]
+code = "shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx,depth_test_disable;
+uniform vec4 albedo : hint_color;
+uniform sampler2D texture_albedo : hint_albedo;
+uniform float specular;
+uniform float metallic;
+uniform float roughness : hint_range(0,1);
+uniform float point_size : hint_range(0,128);
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+
+void vertex() {
+	UV=UV*uv1_scale.xy+uv1_offset.xy;
+}
+
+
+
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 albedo_tex = texture(texture_albedo,base_uv);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	METALLIC = metallic;
+	ROUGHNESS = roughness;
+	SPECULAR = specular;
+}
+"
+
+[sub_resource type="ShaderMaterial" id=9]
+shader = SubResource( 8 )
+shader_param/albedo = Color( 1, 1, 1, 1 )
+shader_param/specular = 0.5
+shader_param/metallic = 0.0
+shader_param/roughness = 1.0
+shader_param/point_size = 1.0
+shader_param/uv1_scale = Vector3( 1, 1, 1 )
+shader_param/uv1_offset = Vector3( 0, 0, 0 )
+shader_param/uv2_scale = Vector3( 1, 1, 1 )
+shader_param/uv2_offset = Vector3( 0, 0, 0 )
 
 [node name="Spatial" type="Spatial"]
 
@@ -49,18 +94,24 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0 )
 
 [node name="Camera" parent="FpCamera/H/V" index="0"]
 current = true
-fov = 86.6
-
-[node name="tec9_viewmodel" parent="FpCamera/H/V" index="2"]
-viewmodelfov = 70.0
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = SubResource( 3 )
 material/0 = SubResource( 4 )
 
 [node name="MeshInstance2" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.661, 1.1817 )
-mesh = SubResource( 5 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 1.661, 0 )
+mesh = SubResource( 6 )
 material/0 = null
+
+[node name="MeshInstance4" type="MeshInstance" parent="."]
+transform = Transform( 0.826108, -0.367741, -0.42698, 0, 0.757713, -0.652588, 0.563512, 0.539108, 0.625953, 0, 1.661, -5 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="MeshInstance3" type="MeshInstance" parent="."]
+visible = false
+mesh = SubResource( 7 )
+material/0 = SubResource( 9 )
 
 [editable path="FpCamera"]
