@@ -53,9 +53,13 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+			mouse_horizontal_sensitivity_modifier = 0.0
+			mouse_vertical_sensitivity_modifier = 0.0
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		elif Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+			mouse_horizontal_sensitivity_modifier = 1.0
+			mouse_vertical_sensitivity_modifier = 1.0
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:

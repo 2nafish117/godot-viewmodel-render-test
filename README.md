@@ -31,10 +31,11 @@ See `/Assets/Viewmodel.gdshader` for the shader code
 
 The viewmodel shader modifies its projection matrix to render the viewmodel at a different fov than the main camera.
 
-![alt text](https://github.com/2nafish117/godot-viewmodel-render-test/blob/master/images/Screenshot1.png)
-
-![alt text](https://github.com/2nafish117/godot-viewmodel-render-test/blob/master/images/Screenshot2.png)
-
-![alt text](https://github.com/2nafish117/godot-viewmodel-render-test/blob/master/images/Screenshot3.png)
-
-![alt text](https://github.com/2nafish117/godot-viewmodel-render-test/blob/master/images/Screenshot3.png)
+![](https://github.com/2nafish117/godot-viewmodel-render-test/blob/master/images/Screenshot2.png)
+*camera fov 40 and viewmodel fov 60*
+![](https://github.com/2nafish117/godot-viewmodel-render-test/blob/master/images/Screenshot3.png)
+*camera fov 90 and viewmodel fov 60*
+![](https://github.com/2nafish117/godot-viewmodel-render-test/blob/master/images/Screenshot1.png)
+*money shot with dof*
+![](https://github.com/2nafish117/godot-viewmodel-render-test/blob/master/images/Screenshot4.png)
+*doesnt clip into nearby geometry*

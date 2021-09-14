@@ -94,6 +94,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0 )
 
 [node name="Camera" parent="FpCamera/H/V" index="0"]
 current = true
+fov = 90.0
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = SubResource( 3 )
