@@ -4,8 +4,6 @@ render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlic
 const float PI = 3.1415926;
 
 uniform float viewmodel_fov = 50.0f;
-uniform float screen_width = 16.0f;
-uniform float screen_height = 9.0f;
 
 uniform vec4 albedo : hint_color = vec4(1.0f);
 uniform sampler2D texture_albedo : hint_albedo;
@@ -32,7 +30,7 @@ void vertex() {
 	
 	/* begin shader magic*/
 	float onetanfov = 1.0f / tan(0.5f * (viewmodel_fov * PI / 180.0f));
-	float aspect = screen_width / screen_height;
+	float aspect = VIEWPORT_SIZE.x / VIEWPORT_SIZE.y;
 	// modify projection matrix
 	PROJECTION_MATRIX[1][1] = onetanfov;
 	PROJECTION_MATRIX[0][0] = onetanfov / aspect;
